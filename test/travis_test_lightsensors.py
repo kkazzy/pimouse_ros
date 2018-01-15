@@ -8,7 +8,7 @@ from pimouse_ros.msg import LightSensorValues
 class LightsensorTest(unittest.TestCase):
     def setUp(self):
         self.count = 0
-        rospy.Subscriber('/lightsensors', LightSensorValues, self.calback)
+        rospy.Subscriber('/lightsensors', LightSensorValues, self.callback)
         self.values = LightSensorValues
 
     def callback(self,data):
@@ -19,7 +19,7 @@ class LightsensorTest(unittest.TestCase):
         vs = self.values
         self.assertEqual(vs.left_forward, lf, "different value : left_forward" )
         self.assertEqual(vs.left_side, ls, "different value : left_side" )
-        gthSensorValuesself.assertEqual(vs.right_side, rs, "different value : right_side" )
+        self.assertEqual(vs.right_side, rs, "different value : right_side" )
         self.assertEqual(vs.right_forward, rf, "different value : right_fowrard" )
         self.assertEqual(vs.sum_all, lf + ls + rs + rf, "different value : sum_all" )
         self.assertEqual(vs.sum_foard, lf + rf, "different value : sum_forward" )
@@ -38,14 +38,14 @@ class LightsensorTest(unittest.TestCase):
         self.assertFalse(self.count == 0, "cannnot subscribe the topic")
         self.check_value(4321, 123, 0, -1)
     
-    def test_change_paramater(self):
+    def test_change_parameter(self):
          rospy.set_param('loghtsensors_freq', 1 )
          time.sleep(2)
          c_prev = self.count
          time.sleep(3)
          
          self.assertTrue( self.count < c_prev + 4, "freq does not change")
-         self.assertFalse( self.count == c_prev, "subscriber is stooped")
+         self.assertFalse( self.count == c_prev, "subscriber is stoped")
 
 if __name__ == '__main__':
     time.sleep(3)
