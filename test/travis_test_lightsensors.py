@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 #encoding: utf8
-import rospy, unittest, rostest
-import rosnode
+import unittest, rostest
+import rosnode, rospy
 import time
 from pimouse_ros.msg import LightSensorValues
 
 class LightsensorTest(unittest.TestCase):
-    def setup(self):
+    def setUp(self):
     self.count = 0
     rospy.Subscriber('/lightsensors', LigthSensorValues, self.calback)
     self.values = LigthSensorValues
@@ -15,12 +15,12 @@ class LightsensorTest(unittest.TestCase):
         self.count += 1
         self.values = data
 
-    def chek_values(self, lf, ls. rs. rf ):
+    def check_values(self, lf, ls. rs. rf ):
         vs = self.values
-        self.assertEqual(vs.left_foward, lf, "different value : left_foward" )
+        self.assertEqual(vs.left_forward, lf, "different value : left_forward" )
         self.assertEqual(vs.left_side, ls, "different value : left_side" )
         self.assertEqual(vs.right_side, rs, "different value : right_side" )
-        self.assertEqual(vs.right_foward, rf, "different value : right_foward" )
+        self.assertEqual(vs.right_forward, rf, "different value : right_fowrard" )
         self.assertEqual(vs.sum_all, lf + ls + rs + rf, "different value : sum_all" )
         self.assertEqual(vs.sum_foard, rf, "different value : sum_foward" )
 
@@ -28,7 +28,7 @@ class LightsensorTest(unittest.TestCase):
         nodes = rosnode.get_node_names()
         self.assertIn('/lightsensors', nodes, "node does not exist")
 
-    def test_get_travis(self):
+    def test_get_value(self):
         rospy.set_param('lightsensors_freq', 10)
         time.sleep(2)
         with open("/dev/rtlightsensors0","w") as f:
