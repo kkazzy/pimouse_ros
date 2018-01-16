@@ -27,12 +27,12 @@ if __name__ == '__main__':
                 data = f.readline().split()
                 data = [ int(e) for e in data ]
                 d = LightSensorValues()
-                d.right_foward = data[0]
+                d.right_forward = data[0]
                 d.right_side = data[1]
                 d.left_side = data[2]
-                d.left_foward = data[3]
+                d.left_forward = data[3]
                 d.sum_all = sum(data)
-                d.sum_foward = data[0] + data[3]
+                d.sum_forward = data[0] + data[3]
                 pub.publish(d)
         except IOError:
             rospy.logerr("cannot write to " + devfile )
