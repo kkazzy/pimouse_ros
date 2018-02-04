@@ -7,7 +7,7 @@ from geometry_msgs.msg import Twist
 from std_srvs.srv import Trigger, TriggerResponse
 
 class MotorTest(unittest.TestCase):
-    def setup(self):
+    def setUp(self):
         rospy.wait_for_service('/motor_on')
         rospy.wait_for_service('/motor_off')
         on = rospy.ServiceProxy('/motor_on', Trigger)
